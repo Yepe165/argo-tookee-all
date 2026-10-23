@@ -1,4 +1,4 @@
-const V='pantau-v77-database',SHELL=['./','./index.html','./manifest.json','./icon-192.png','./logo.png','./logo-login.png','./logo-plate.png','./bg.jpg'];
+const V='pantau-v79-pasang',SHELL=['./','./index.html','./manifest.json','./icon-192.png','./logo.png','./logo-login.png','./logo-plate.png','./bg.jpg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{const r=e.request,u=new URL(r.url);

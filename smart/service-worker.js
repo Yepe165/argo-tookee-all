@@ -1,5 +1,5 @@
 /* Service worker Argo Tookee Smart — naikkan VERSION setiap file aplikasi diubah */
-const VERSION = 'smart-v49-tanpa-berangkat';
+const VERSION = 'smart-v51-pasang';
 const PAGE = './index.html';
 const SHELL = ['./', PAGE, './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-192.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 

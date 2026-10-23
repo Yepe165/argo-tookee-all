@@ -2,7 +2,7 @@
 <html lang="id"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b4a24"><title>Argo Tookee Supir</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,800&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,800&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,800&display=swap"></noscript>
 <link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}
   :root{
@@ -198,7 +198,7 @@ svg.i3d.h{width:30px;height:30px;vertical-align:-9px;margin-right:6px;display:in
 #lcv #qdev{left:72px;width:796px;top:1590px;height:40px;color:#fff;font:500 24px/40px Poppins,"Segoe UI",sans-serif;text-shadow:0 2px 5px rgba(0,0,0,.85)}
 #lcv #qdev b{font-weight:600;letter-spacing:1px}
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Kalam:wght@700&family=Montserrat:ital,wght@0,500;0,800;1,800;1,900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Kalam:wght@700&family=Montserrat:ital,wght@0,500;0,800;1,800;1,900&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Kalam:wght@700&family=Montserrat:ital,wght@0,500;0,800;1,800;1,900&display=swap"></noscript>
 <style>[hidden]{display:none!important}
 .avatar.tap{cursor:pointer;position:relative}.avatar.tap:active{opacity:.8}
 .avatar.big.tap::after{content:"📷";position:absolute;right:-2px;bottom:-2px;width:22px;height:22px;border-radius:50%;background:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.35)}
@@ -322,7 +322,7 @@ svg.i3d.h{width:30px;height:30px;vertical-align:-9px;margin-right:6px;display:in
 <div id="ring"></div><div id="toast"></div>
 <script>
 /* ===== ArgoPush v1 — notifikasi saat aplikasi ditutup (Web Push). Pengirim: 5_UPLOAD_PUSH_SERVER ===== */
-const ARGO_PUSH_API = '';   // isi alamat server push, mis. https://argo-push.vercel.app/api/push (lihat PANDUAN_REALTIME.txt)
+const ARGO_PUSH_API = 'https://argo-tookee-all.vercel.app/api/push';   // isi alamat server push, mis. https://argo-push.vercel.app/api/push (lihat PANDUAN_REALTIME.txt)
 const ARGO_VAPID = 'BMGYkWyJ6a-sv2--CctLeZ5HMxZS1zWJCGq6rkf-_FZDd2g_YNm8fExNKCEO-EwEaYVBws8eaMGZROxziRHj0DY';
 (function(){
   function u8(s){ s=s.replace(/-/g,'+').replace(/_/g,'/'); while(s.length%4) s+='='; var r=atob(s),a=new Uint8Array(r.length); for(var i=0;i<r.length;i++) a[i]=r.charCodeAt(i); return a; }
@@ -1047,6 +1047,49 @@ else{var sv=window.__supSaved();$('qg').value=sv.g||'';$('qu').value=sv.n||'';sh
   document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible') clr(); });
   window.addEventListener('focus',clr); window.addEventListener('pageshow',clr);
   setTimeout(clr,1200); clr();
+})();
+</script>
+<!-- Tombol Pasang Aplikasi -->
+<div id="pwaBar" hidden style="position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:99999;background:#0b4a24;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:16px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.4);font:500 13px/1.4 Poppins,system-ui,sans-serif">
+  <div style="display:flex;align-items:center;gap:10px">
+    <div id="pwaTx" style="flex:1">Pasang aplikasi Argo Tookee Supir di layar utama HP.</div>
+    <button id="pwaGo" type="button" style="border:0;border-radius:12px;padding:9px 14px;background:#f2c230;color:#1a1405;font:700 13px Poppins,system-ui,sans-serif">Pasang</button>
+    <button id="pwaX" type="button" aria-label="Tutup" style="border:0;background:none;color:#fff;font-size:20px;line-height:1;padding:4px 6px">&times;</button>
+  </div>
+</div>
+<script>
+(function(){
+  var bar=document.getElementById('pwaBar'),tx=document.getElementById('pwaTx'),go=document.getElementById('pwaGo'),x=document.getElementById('pwaX'),ev=null;
+  var ua=navigator.userAgent||'';
+  var standalone=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+  if(standalone)return;
+  try{if(sessionStorage.getItem('pwaX'))return}catch(e){}
+  var inApp=/FBAN|FBAV|Instagram|WhatsApp|Line\/|MicroMessenger|TikTok|Telegram|; wv\)/i.test(ua);
+  var ios=/iPhone|iPad|iPod/i.test(ua);
+  function show(msg,btn){tx.textContent=msg;if(btn){go.textContent=btn}else{go.style.display='none'}bar.hidden=false}
+  x.onclick=function(){bar.hidden=true;try{sessionStorage.setItem('pwaX','1')}catch(e){}};
+  if(inApp){
+    show('Buka link ini di Chrome (Android) atau Safari (iPhone) untuk memasang aplikasi. Ketuk menu ⋮ lalu "Buka di browser".');
+    return;
+  }
+  if(ios){
+    show('Di Safari: ketuk tombol Bagikan, lalu pilih "Tambah ke Layar Utama".');
+    return;
+  }
+  window.addEventListener('beforeinstallprompt',function(e){
+    e.preventDefault();ev=e;
+    show('Pasang aplikasi Argo Tookee Supir di layar utama HP.','Pasang');
+  });
+  go.onclick=function(){
+    if(!ev)return;
+    ev.prompt();
+    ev.userChoice.then(function(){ev=null;bar.hidden=true}).catch(function(){});
+  };
+  window.addEventListener('appinstalled',function(){bar.hidden=true});
+  /* Cadangan: jika Chrome belum menawarkan pemasangan dalam 4 detik */
+  setTimeout(function(){
+    if(!ev&&bar.hidden)show('Belum muncul tombol pasang? Ketuk menu ⋮ di Chrome lalu pilih "Instal aplikasi" atau "Tambahkan ke layar utama".');
+  },4000);
 })();
 </script>
 </body></html>
